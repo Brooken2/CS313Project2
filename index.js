@@ -29,8 +29,21 @@ function stampPrice(req, res){
 	var weightOfMail = req.query.weight;
 	var mailPrice = getMailPrice(mailChoice, weightOfMail);
 	console.log('Got the mail Price');
-	var stuff = {mailChoice: String(mailChoice), weightOfMail:String( weightOfMail), mailPrice:String( mailPrice)}
+	var mailName = getMailName(mailChoice);
+	var stuff = {mailName: String(mailName), weightOfMail:String(weightOfMail), mailPrice:String(mailPrice)};
 	res.render('stamp', stuff);
+}
+
+function getMailName(mailChoice){
+	if(mailChoice == 'letterS'){
+		return 'Letters(Stamped)';
+	}else if(mailChoice == 'letterM'){
+		return 'Letters(Metered)';
+	}else if(mailChoice == 'largeE'){
+		return 'Large Envelopes(Flats)';
+	}else if(mailChoice == 'firstClass'){
+		return 'First-Class Package Service-Retail';
+	}
 }
 
 function getMailPrice(typeMail, weightOfMail){
