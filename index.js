@@ -23,6 +23,16 @@ app.set('port', process.env.PORT || 5000)
 	});
 
 
+function stampPrice(req, res){
+	console.log('Stamp Prices');
+	var mailChoice = req.query.mailType;
+	var weightOfMail = req.query.weight;
+	var mailPrice = getMailPrice(mailChoice, weightOfMail);
+	console.log('Got the mail Price');
+	var stuff = {mailChoice: String(mailChoice), weightOfMail:String( weightOfMail), mailPrice:String( mailPrice)}
+	res.render('stamp', stuff);
+}
+
 function getMailPrice(typeMail, weightOfMail){
 	if(typeMail == 'letterS'){
 		if(weightOfMail == '1'){
@@ -109,15 +119,4 @@ function getMailPrice(typeMail, weightOfMail){
 		}
 	}
 }
-
-function stampPrice(req, res){
-	console.log('Stamp Prices');
-	var mailChoice = req.query.mailType;
-	var weightOfMail = req.query.weight;
-	var mailPrice = getMailPrice(mailChoice, weightOfMail);
-	console.log('Got the mail Price');
-	var stuff = {mailChoice: String(mailChoice), weightOfMail:String( weightOfMail), mailPrice:String( mailPrice)}
-	res.render('stamp', stuff);
-}
-
 
